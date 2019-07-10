@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="invoice_form_view_agente" model="ir.ui.view">
+            <field name="name">invoice.form.view.agente</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="before" >
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_provvigioni" type="object" class="oe_stat_button" icon="fa-bars" attrs="{'invisible': [('provvigioni_count', '=', 0)]}">
+                            <field name="provvigioni_count" widget="statinfo" string="Provvigioni"/>
+                        </button>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position="after" >
+                    <field name="agente_id" />
+                    <field name="provvigione" />
+                </xpath>
+            </field>
+        </record>
+
+        <!--righe fatture clienti -->
+        <record id="view_invoice_line_agenti_tree" model="ir.ui.view">
+            <field name="name">account.invoice.line.agenti.tree</field>
+            <field name="model">account.invoice.line</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <tree string="Righe Fatture Clienti" create="0" delete="0" editable="bottom">
+                    <field name="invoice_id" string="Fattura" readonly="1"/>
+                    <field name="date_invoice" readonly="1"/>
+                    <field name="partner_id" string="Cliente" readonly="1"/>
+                    <field name="product_id" readonly="1"/>
+                    <field name="name" readonly="1"/>
+                    <field name="quantity" readonly="1"/>
+                    <field name="uom_id" readonly="1"/>
+                    <field name="provvigione" readonly="1"/>
+                    <field name="agente_id"  readonly="1"/>
+                    <field name="price_subtotal" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_invoice_line_agenti_filter" model="ir.ui.view">
+            <field name="name">invoice.line.agenti.filter</field>
+            <field name="model">account.invoice.line</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <search string="Righe Fatture Clienti">
+                    <field name="invoice_id" string="Fattura"/>
+                    <field name="agente_id" string="Agente"/>
+                    <field name="partner_id" string="Cliente"/>
+                    <field name="product_id" string="Prodotto"/>
+                    <separator/>
+                    <filter string="Validate" name="valide" domain="[('invoice_state','not in',['draft','cancel'])]"/>
+                    <group expand="0" string="Group By">
+                    	<filter name="agente_id" string="Agente" context="{'group_by':'agente_id'}"/>
+                    	<filter name="partner_id" string="Cliente" context="{'group_by':'partner_id'}"/>
+                    	<filter name="product_id" string="Prodotto" context="{'group_by':'product_id'}"/>
+                    	<filter name="category_id" string="Categoria" context="{'group_by':'category_id'}"/>   
+                    </group>
+               </search>
+            </field>
+        </record>    
+           
+        <record id="act_invoice_line_agenti_view" model="ir.actions.act_window">
+            <field name="name">Righe Fatture Clienti</field>
+            <field name="res_model">account.invoice.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_invoice_line_agenti_tree"/>
+            <field name="search_view_id" ref="view_invoice_line_agenti_filter"/>
+            <field name="domain">[('invoice_id.type','in',['out_invoice','out_refund'])]</field>
+            <field name="context">{'search_default_valide':True}</field>
+        </record>       
+        
+        <menuitem action="act_invoice_line_agenti_view" id="menu_act_invoice_line_agenti_view" parent="menu_provvigioni_agenti" sequence="15"/>
+    
+    </data>
+</odoo>

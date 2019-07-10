@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!-- ##### WIZARD RICALCOLO CAMPI descrizione sulle varianti ##### -->
+        <record id="recompute_category_id_invoice_line_form" model="ir.ui.view">
+            <field name="name">recompute.category.id.invoice.line.form</field>
+            <field name="model">cq.ricalcola.campi</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form >
+                    <div>
+                        <!-- è necessario mantenere nulla l'indentazione del contenuto
+                        del paragrafo per poter avere una corretta traduzione -->
+                        <p>
+This wizard will overwrite the field <strong>category_id</strong> on account.invoice.line 
+taking values from the field <strong>categ_id</strong> of the product_id on the invoice line.
+<br/>
+That's because *category_id* has been declared as related to the *categ_id* of the product_id of the same invoice line, 
+and in case of existing invoice lines, *category_id* will remain empty until the product.product's
+categ_id will be changed by users.
+                        </p>
+                        <p><strong>Do you want to continue?</strong></p>
+                    </div>
+                    <separator string="" colspan="8"/>
+                    <footer>
+                        <button name="recompute_category_id_invoice_line"
+                            string="Confirm" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="recompute_category_id_invoice_line_action" model="ir.actions.act_window">
+            <field name="name">Product Category Invoice Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cq.ricalcola.campi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="recompute_category_id_invoice_line_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="recompute_category_id_invoice_line_action" id="menu_recompute_category_id_invoice_line"
+            groups="base.group_system" name="Product Category Invoice Lines"
+            parent="cq_technical_features.menu_cq_ricalcola_campi_base"/>
+<!-- ######################## -->
+
+    </data>
+</openerp>

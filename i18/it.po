@@ -1,0 +1,46 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * cq_agenti_v10
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-19 15:23+0000\n"
+"PO-Revision-Date: 2017-10-19 15:23+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: cq_agenti_v10
+#: model:ir.ui.menu,name:cq_agenti_v10.menu_recompute_category_id_invoice_line
+#: model:ir.actions.act_window,name:cq_agenti_v10.recompute_category_id_invoice_line_action
+msgid "Product Category Invoice Lines"
+msgstr "Categoria Prodotto su righe fatture"
+
+#. module: cq_agenti_v10
+#: model:ir.ui.view,arch_db:cq_agenti_v10.recompute_category_id_invoice_line_form
+msgid
+""
+"This wizard will overwrite the field <strong>category_id</strong> on account.invoice.line "
+"taking values from the field <strong>categ_id</strong> of the product_id on the invoice line."
+"<br/>"
+"That's because *category_id* has been declared as related to the *categ_id* of the product_id of the same invoice line, "
+"and in case of existing invoice lines, *category_id* will remain empty until the product.product's"
+"categ_id will be changed by users."
+msgstr
+""
+"Questo wizard sovrascriverà il campo <strong>category_id</strong> su account.invoice.line "
+"prendendo come valore quello del campo <strong>categ_id</strong> del product_id sulla riga fattura."
+"<br/>"
+"Questo perché *category_id* è stato dichiarato come un campo related a *categ_id* del product_id della stessa riga fattura, "
+"ed in caso di righe fatture già esistenti, *category_id* rimarrà vuoto finché il campo categ_id di product.product "
+"verrà cambiato dall'utente."
+
+#. module: cq_agenti_v10
+#: model:ir.ui.view,arch_db:cq_agenti_v10.recompute_category_id_invoice_line_form
+msgid "<strong>Do you want to continue?</strong>"
+msgstr "<strong>Vuoi continuare?</strong>"

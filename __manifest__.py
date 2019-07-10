@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+{
+    'name' : 'CQ Agenti',
+    'version' : '1.1',
+    'category': 'Generic Modules/Others',
+    'author': 'Stefano Siccardi @ CQ Creativi Quadrati',
+    'website': 'http://www.creativiquadrati.it',
+    'depends' : ['cq_sales_10', 'l10n_it_withholding_tax','cq_technical_features'],
+    'data': [
+        'security/agente_security.xml',
+        'views/sale_config_settings_views.xml',
+        'views/provvigioni_view.xml',
+        'views/res_partner_view.xml',
+        'views/sale_view.xml',
+        'views/product_view.xml',
+        'views/account_view.xml',
+        'views/config_enasarco_view.xml',
+        'views/tabella_enasarco_view.xml',
+        'wizard/flag_pagato_view.xml',
+        'wizard/estrai_provvigioni.xml',
+        'wizard/calcolo_enasarco_view.xml',
+        'wizard/crea_fattura_agente_view.xml',
+        'wizard/cq_ricalcola_campi_view.xml',
+        'security/ir.model.access.csv',
+        'data/product_data.xml',
+    ],
+    'installable': True,
+    'auto_install': False,
+}

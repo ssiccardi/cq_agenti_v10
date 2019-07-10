@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_config_enasarco_tree" model="ir.ui.view">
+      <field name="name">config.enasarco.tree</field>
+      <field name="model">config.enasarco</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Configurazione Enasarco">
+             <field name="anno" />
+             <field name="aliquota_per_mono" />
+             <field name="aliquota_per_pluri" />          
+             <field name="carico_per_mono_agen" />
+             <field name="carico_per_mono_mand" /> 
+             <field name="carico_per_pluri_agen" />
+             <field name="carico_per_pluri_mand" />
+             <field name="provv_max_mono" />
+             <field name="provv_max_pluri" /> 
+             <field name="cont_min_mono" />
+             <field name="cont_min_pluri" />
+             <field name="aliquota_soc_mono" />
+             <field name="aliquota_soc_pluri" />          
+             <field name="carico_soc_mono_agen" />
+             <field name="carico_soc_mono_mand" /> 
+             <field name="carico_soc_pluri_agen" />
+             <field name="carico_soc_pluri_mand" />              
+        </tree>
+      </field>
+    </record>
+
+
+    <record id="view_config_enasarco_form" model="ir.ui.view">
+      <field name="name">config.enasarco.form</field>
+      <field name="model">config.enasarco</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Configurazione Enasarco">
+          <group string="Validità" col="2">
+             <field name="anno" required="1" />
+          </group>
+          <group string="Persona Fisica">
+             <field name="aliquota_per_mono" />
+             <field name="aliquota_per_pluri" />          
+             <field name="carico_per_mono_agen" />
+             <field name="carico_per_mono_mand" /> 
+             <field name="carico_per_pluri_agen" />
+             <field name="carico_per_pluri_mand" />
+             <field name="provv_max_mono" />
+             <field name="provv_max_pluri" /> 
+             <field name="cont_min_mono" />
+             <field name="cont_min_pluri" />
+          </group>
+
+          <group string="Società di Capitali">
+             <field name="aliquota_soc_mono" />
+             <field name="aliquota_soc_pluri" />          
+             <field name="carico_soc_mono_agen" />
+             <field name="carico_soc_mono_mand" /> 
+             <field name="carico_soc_pluri_agen" />
+             <field name="carico_soc_pluri_mand" />              
+          </group>
+          <group string="Campo da non modificare se non in casi particolari" groups="base.group_system">
+             <field name="campo_prezzo" />              
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_config_enasarco_list" model="ir.actions.act_window">
+      <field name="name">Configurazione Enasarco</field>
+      <field name="res_model">config.enasarco</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem action="action_config_enasarco_list" id="menu_manage_enasarco" name="Enasarco" parent="account.account_account_menu" sequence="50" groups="group_enasarco"/>
+
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- regole agente -->
+        <record id="agente_partner_rule" model="ir.rule">
+            <field name="name">Partner Agenti</field>
+            <field ref="base.model_res_partner" name="model_id"/>
+            <field name="domain_force">['|','|','|',('agente_id','child_of',[user.partner_id.id]),('parent_id.agente_id','child_of',[user.partner_id.id]),
+                                        ('child_ids.agente_id','child_of',[user.partner_id.id]),('id','=',user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('cq_sales_10.group_sale_agente'))]"/>
+        </record>
+        <record id="agente_order_personal_rule" model="ir.rule">
+            <field name="name">Ordini Personali Agenti</field>
+            <field ref="sale.model_sale_order" name="model_id"/>
+            <field name="domain_force">[('agente_id','child_of',[user.partner_id.id])]</field>
+            <field name="groups" eval="[(4, ref('cq_sales_10.group_sale_agente'))]"/>
+        </record>
+        <record id="agente_order_line_personal_rule" model="ir.rule">
+            <field name="name">Righe Ordini Personali Agenti</field>
+            <field ref="sale.model_sale_order_line" name="model_id"/>
+            <field name="domain_force">[('order_id.agente_id','child_of',[user.partner_id.id])]</field>
+            <field name="groups" eval="[(4, ref('cq_sales_10.group_sale_agente'))]"/>
+        </record>
+        <record id="agente_account_invoice_line_personal_rule" model="ir.rule">
+            <field name="name">Righe Fatture Personali Agenti</field>
+            <field ref="account.model_account_invoice_line" name="model_id"/>
+            <field name="domain_force">[('agente_id','child_of',[user.partner_id.id])]</field>
+            <field name="groups" eval="[(4, ref('cq_sales_10.group_sale_agente'))]"/>
+        </record>
+        <record id="agente_account_invoice_personal_rule" model="ir.rule">
+            <field name="name">Fatture Personali Agenti</field>
+            <field ref="account.model_account_invoice" name="model_id"/>
+            <field name="domain_force">[('invoice_line_ids.agente_id','child_of',[user.partner_id.id])]</field>
+            <field name="groups" eval="[(4, ref('cq_sales_10.group_sale_agente'))]"/>
+        </record>
+        <record id="provv_comp_rule" model="ir.rule">
+            <field name="name">Provvigioni multi-company</field>
+            <field name="model_id" ref="model_cq_provvigioni"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+        <record id="agente_provv_personal_rule" model="ir.rule">
+            <field name="name">Provvigioni Personali Agenti</field>
+            <field ref="model_cq_provvigioni" name="model_id"/>
+            <field name="domain_force">[('agente','child_of',[user.partner_id.id])]</field>
+            <field name="groups" eval="[(4, ref('cq_sales_10.group_sale_agente'))]"/>
+        </record>
+        <record id="enasarco_comp_rule" model="ir.rule">
+            <field name="name">Enasarco multi-company</field>
+            <field name="model_id" ref="model_tabella_enasarco"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+        <record id="agente_enasarco_personal_rule" model="ir.rule">
+            <field name="name">Enasarco Personali Agenti</field>
+            <field ref="model_tabella_enasarco" name="model_id"/>
+            <field name="domain_force">[('agente_id','child_of',[user.partner_id.id])]</field>
+            <field name="groups" eval="[(4, ref('cq_sales_10.group_sale_agente'))]"/>
+        </record>
+    </data>
+    
+    <!--punti di menu-->
+    <menuitem name="Sales"
+        id="sales_team.menu_base_partner"
+        web_icon="sale,static/description/icon.png"
+        groups="sales_team.group_sale_salesman,sales_team.group_sale_manager,cq_sales_10.group_sale_agente"/>
+    <menuitem action="sale.action_orders"
+        id="sale.menu_sale_order" parent="sales_team.menu_sales"
+        sequence="12" groups="sales_team.group_sale_salesman,sales_team.group_sale_manager,cq_sales_10.group_sale_agente"/>
+    <menuitem name="Invoicing"
+        id="account.menu_finance"
+        groups="account.group_account_user,account.group_account_manager,account.group_account_invoice,cq_sales_10.group_sale_agente"
+        web_icon="account,static/description/icon.png"
+        sequence="40"/>
+    <menuitem id="account.menu_finance_payables" name="Purchases" parent="account.menu_finance" sequence="3" groups="base.group_user"/>
+        
+    <!--viste-->
+    <record id="account.view_partner_property_form" model="ir.ui.view">
+        <field name="groups_id" eval="[(4, ref('cq_sales_10.group_sale_agente'))]"/>
+    </record>
+
+    <record id="group_enasarco" model="res.groups">
+        <field name="name">Gestione Enasarco</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="comment">Gruppo di configurazione per la gestione dell'enasarco.</field>
+    </record>
+
+</odoo>

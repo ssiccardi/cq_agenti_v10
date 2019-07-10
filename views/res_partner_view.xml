@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_partner_form_agente" model="ir.ui.view">
+            <field name="name">res.partner.form.agente</field>
+            <field name="model">res.partner</field>
+            <field name="groups_id" eval="[(6,0,[ref('account.group_account_manager'),ref('sales_team.group_sale_manager')])]" />
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='sales_purchases']//field[@name='supplier']" position="after">
+                    <label for="agente" attrs="{'invisible': [('supplier','=',False)]}"/>
+                    <div attrs="{'invisible': [('supplier','=',False)]}">
+                        <field name="agente" />
+                        <br attrs="{'invisible': [('agente','=',False)]}"/>
+            		    <label for="provvage" attrs="{'invisible': [('agente','=',False)]}" class="oe_inline"/>
+                        <field name="provvage" attrs="{'invisible': [('agente','=',False)]}" class="oe_inline"/>
+                        <label string="%" attrs="{'invisible': [('agente','=',False)]}" class="oe_inline" />
+                        <br attrs="{'invisible': [('agente','=',False)]}"/>
+            		    <label for="perc_acnticipo_provv" attrs="{'invisible': [('agente','=',False)]}" class="oe_inline"/>
+                        <field name="perc_acnticipo_provv" attrs="{'invisible': [('agente','=',False)]}" class="oe_inline"/>
+                        <label string="%" attrs="{'invisible': [('agente','=',False)]}" class="oe_inline" />
+                    </div>
+                </xpath>
+                <xpath expr="//page[@name='sales_purchases']//field[@name='customer']" position="after">
+                    <label for="agente_id" attrs="{'invisible': [('customer','=',False)]}"/>
+                    <div attrs="{'invisible': [('customer','=',False)]}">
+                        <field name="agente_id" /><br/>
+            		    <label for="provvcli" attrs="{'invisible': [('agente_id','=',False)]}" class="oe_inline"/>
+                        <field name="provvcli" attrs="{'invisible': [('agente_id','=',False)]}" class="oe_inline"/>
+                        <label string="%" attrs="{'invisible': [('agente_id','=',False)]}" class="oe_inline" />
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+       <record id="view_res_partner_filter_agente" model="ir.ui.view">
+            <field name="name">res.partner.filter.agente</field>
+            <field name="model">res.partner</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <filter name='supplier' position="after">
+                    <filter string="Agenti" name="agente" domain="[('agente','=',True)]" />
+                </filter>
+            </field>
+       </record>
+
+       <record id="partner_form_view_enasarco" model="ir.ui.view">
+            <field name="name">partner.form.enasarco</field>
+	        <field name="model">res.partner</field>
+	        <field name="groups_id" eval="[(6,0,[ref('cq_agenti_v10.group_enasarco')])]" />
+	        <field name="inherit_id" ref="view_partner_form_agente"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//label[@for='provvage']" position="before">
+                     <field name="mandato_history_line" attrs="{'invisible':[('agente','=',False)]}" >
+                       <tree string="Storico Mandato" editable="top" limit="4">
+                           <field name="mandato" required="1"/>
+                           <field name="mese_start" required="1"/>
+                           <field name="anno_start" required="1"/>
+                           <field name="mese_end" />
+                           <field name="anno_end" />
+                       </tree>
+                     </field>
+                     <field name="tipo_agente" attrs="{'invisible':[('agente','=',False)]}"/>
+                     <br attrs="{'invisible': [('agente','=',False)]}"/>
+                     <label for="fisso_mensile" attrs="{'invisible': [('agente','=',False)]}" class="oe_inline"/>
+                     <field name="fisso_mensile" attrs="{'invisible':[('agente','=',False)]}" class="oe_inline"/>
+                     <label string="€" attrs="{'invisible': [('agente','=',False)]}" class="oe_inline" />
+                     <br attrs="{'invisible': [('agente','=',False)]}"/>
+                 </xpath>
+            </field>
+       </record>
+     
+    </data>
+</odoo>

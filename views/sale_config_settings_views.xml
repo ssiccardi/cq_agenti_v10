@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_sales_config_agenti" model="ir.ui.view">
+            <field name="name">sale settings agenti</field>
+            <field name="model">sale.config.settings</field>
+            <field name="inherit_id" ref="sale.view_sales_config"/>
+            <field name="arch" type="xml">
+                <div id="main" position="inside">
+                    <group string="Provvigioni" id="age" name="agenti_sales">
+                        <field name="calcolo_provvigioni" widget="radio"/>
+                        <field name="provvigione_pagato_tot" />
+                        <field name="group_enasarco" widget="radio"/>
+                    </group>
+                </div>
+            </field>
+        </record>
+
+</odoo>

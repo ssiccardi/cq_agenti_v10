@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_tabella_enasarco_tree" model="ir.ui.view">
+      <field name="name">tabella.enasarco.tree</field>
+      <field name="model">tabella.enasarco</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Tabella Enasarco">
+             <field name="agente_id" />
+             <field name="anno" />          
+             <field name="trimestre" />
+             <field name="mese" /> 
+             <field name="tipo_agente" />
+             <field name="mandato" />
+             <field name="provvigione" />
+             <field name="contributo_mese" /> 
+             <field name="cont_agenzia" />
+             <field name="cont_mandante" />             
+             <field name="integrazione" />
+             <field name="quota_fattura" />
+             <field name="fattura_id" /> 
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_tabella_enasarco_form" model="ir.ui.view">
+      <field name="name">tabella.enasarco.form</field>
+      <field name="model">tabella.enasarco</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Tabella Enasarco">
+          <group>
+             <field name="company_id" readonly="1" groups="base.group_multi_company" />
+             <field name="agente_id" />
+             <field name="anno" />          
+             <field name="trimestre" />
+             <field name="mese" /> 
+             <field name="tipo_agente" />
+             <field name="mandato" />
+             <field name="provvigione" />
+             <field name="contributo_mese" /> 
+             <field name="cont_agenzia" />
+             <field name="cont_mandante" />
+             <field name="integrazione" />
+             <field name="quota_fattura" />
+             <field name="fattura_id" />                          
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_tabella_enasarco_list" model="ir.actions.act_window">
+      <field name="name">Tabella Enasarco</field>
+      <field name="res_model">tabella.enasarco</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_tabella_enasarco_list" id="menu_tabella_enasarco_list" parent="menu_provvigioni_agenti" sequence="170" groups="group_enasarco"/>
+
+      <record id="view_enasarco_filter" model="ir.ui.view">
+        <field name="name">enasarco.filter</field>
+        <field name="model">tabella.enasarco</field>
+        <field name="arch" type="xml">
+            <search string="Search Enasarco">
+                <field name="agente_id" operator="child_of"/>
+                <separator/>
+                <filter string="Da fatturare" name="no_fatt" domain="[('fattura_id','=',False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Agente" domain="[]" context="{'group_by':'agente_id'}"/>
+                    <filter string="Fattura" domain="[]" context="{'group_by':'fattura_id'}"/>
+                </group>
+            </search>
+        </field>
+      </record>
+
+</odoo>

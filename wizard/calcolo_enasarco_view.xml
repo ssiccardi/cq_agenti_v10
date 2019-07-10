@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="calcolo_enasarco_view" model="ir.ui.view">
+      <field name="name">calcolo.enasarco.view</field>
+      <field name="model">calcolo.enasarco</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Calcola Contributo Enasarco" >
+ 
+            <p>L'esecuzione di questo wizard cancellerà tutti i record della Tabella Enasarco e li ricalcolerà da Gennaio dell'anno scelto al mese corrente.</p>
+            <group>
+                <group>
+                    <field name="anno" />
+                </group>
+            </group>            
+            <footer>
+                <button name="calcola_enasarco" class="oe_highlight" string="Calcola" type="object" />
+                <button string="Annulla" special="cancel" />
+            </footer>
+
+        </form>
+      </field>
+    </record>
+
+    <act_window
+        id="act_open_calcolo_enasarco_view"
+        res_model="calcolo.enasarco"
+        name="Calcolo Enasarco"
+        view_type="form"
+        view_mode="form" 
+        target="new"/>
+
+    <menuitem action="act_open_calcolo_enasarco_view" id="menu_act_open_calcolo_enasarco_view" parent="menu_provvigioni_agenti" sequence="166" groups="group_enasarco" />
+
+</odoo>

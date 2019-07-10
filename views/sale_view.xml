@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_order_form_agente" model="ir.ui.view">
+            <field name="name">view.order.form.agente</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='sales_person']" position="inside">
+                    <field name="provvigioni" />
+                    <label for="agente_id" attrs="{'invisible': [('provvigioni','=',False)]}"/>
+                    <div attrs="{'invisible': [('provvigioni','=',False)]}">
+                        <field name="agente_id" attrs="{'invisible': [('provvigioni','=',False)]}" class="oe_inline"/>
+                        <br/>
+            		    <label for="percagente" attrs="{'invisible': [('provvigioni','=',False)]}" class="oe_inline"/>
+                        <field name="percagente" attrs="{'invisible': [('provvigioni','=',False)]}" class="oe_inline"/>
+                        <label string="%" attrs="{'invisible': [('provvigioni','=',False)]}" class="oe_inline" />
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

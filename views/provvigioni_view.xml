@@ -1,0 +1,103 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+
+          <record id="view_provvigioni" model="ir.ui.view">
+            <field name="name">Provvigioni agenti</field>
+            <field name="model">cq.provvigioni</field>
+            <field name="arch" type="xml">
+              <tree string="Provvigioni agenti" >
+                  <field name="tipo_provv" />
+                  <field name="agente"/>
+                  <field name="country_id"/>
+                  <field name="invoice_id" />
+                  <field name="cliente"/>
+                  <field name="date_invoice"/>
+                  <field name="tipo_pagamento" />
+                  <field name="tot_fatt"/>
+                  <field name="imponibile_provv"/>
+                  <field name="tot_provv" />
+                  <field name="payment_id" />
+                  <field name="data_pag" />
+                  <field name="importo_pag" />
+                  <field name="da_pagare" sum="Totale"/>
+                  <field name="pagato" />
+                  <field name="data_pag_pro" />
+              </tree>
+            </field>
+          </record>
+      
+          <record id="view_provvigioni_form" model="ir.ui.view">
+            <field name="name">Form Provvigioni agenti</field>
+            <field name="model">cq.provvigioni</field>
+            <field name="arch" type="xml">
+              <form string="Provvigioni agenti" >
+                  <field name="company_id" readonly="1" groups="base.group_multi_company" />
+                  <group string="Agente">
+                      <field name="agente"/>
+                      <field name="country_id"/>
+                  </group>
+                  <group string="Provvigione">
+                      <group>
+                          <field name="tipo_provv" />
+                          <field name="imponibile_provv"/>
+                          <field name="tot_provv" />
+                          <field name="da_pagare" />
+                      </group>
+                      <group>
+                          <field name="pagato" />
+                          <field name="data_pag_pro" />
+                      </group>
+                  </group>
+                  <group string="Fattura">
+                      <field name="invoice_id" readonly="context.get('on_invoice', False)" 
+                                               domain="[('type','in',['out_invoice','out_refund']),('state','not in',['draft','cancel'])]"/>
+                      <field name="cliente"/>
+                      <field name="date_invoice"/>
+                      <field name="tipo_pagamento" />
+                      <field name="tot_fatt"/>
+                  </group>
+                  <group string="Pagamento">
+                      <field name="payment_id" attrs="{'required':[('tipo_provv','=','pag')]}" />
+                      <field name="data_pag" />
+                      <field name="importo_pag" />
+                  </group>
+              </form>
+            </field>
+          </record>
+          
+          <record id="view_provvigioni_filter" model="ir.ui.view">
+            <field name="name">provvigioni.filter</field>
+            <field name="model">cq.provvigioni</field>
+            <field name="arch" type="xml">
+                <search string="Search Provvigioni">
+                    <field name="agente" operator="child_of"/>
+                    <field name="cliente" operator="child_of"/>
+                    <field name="invoice_id" />
+                    <field name="payment_id" />
+                    <separator/>
+                    <filter string="Da pagare" name="no_pagato" domain="[('pagato','=',False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Agente" domain="[]" context="{'group_by':'agente'}"/>
+                        <filter string="Cliente" domain="[]" context="{'group_by':'cliente'}"/>
+                        <filter string="Fattura" domain="[]" context="{'group_by':'invoice_id'}"/>
+                        <filter string="Nazione" domain="[]" context="{'group_by':'country_id'}"/>
+                    </group>
+                </search>
+            </field>
+          </record>
+
+          <record id="action_provvigioni" model="ir.actions.act_window">
+            <field name="name">Provvigioni Agenti</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cq.provvigioni</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_provvigioni_filter"/>
+          </record>
+          
+          <menuitem id="menu_provvigioni_agenti" name="Provvigioni" parent="account.menu_finance_receivables" sequence="150"/>
+          <menuitem action="action_provvigioni" id="menu_provvigioni" parent="menu_provvigioni_agenti" sequence="5"/>
+
+    </data>
+</odoo>

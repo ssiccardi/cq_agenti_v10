@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <record id="prodotto_quota_enasarco" model="product.product">
+            <field name="name">Quota Enasarco</field>
+            <field name="default_code">QtEnsrc</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_all"></field>
+            <field name="purchase_ok">true</field>
+            <field name="sale_ok">false</field>
+            <field name="taxes_id" eval="[(5,0,0)]" />
+            <field name="supplier_taxes_id" eval="[(5,0,0)]" />
+        </record>
+        
+        <record id="prodotto_fisso_agente" model="product.product">
+            <field name="name">Fisso Agente</field>
+            <field name="default_code">FssAgnt</field>
+            <field name="type">service</field>
+            <field name="purchase_ok">true</field>
+            <field name="sale_ok">false</field>
+            <field name="categ_id" ref="product.product_category_all"></field>
+            <field name="taxes_id" eval="[(5,0,0)]" />
+            <field name="supplier_taxes_id" eval="[(5,0,0)]" />
+        </record>
+
+        <record id="prodotto_provvigioni_agente" model="product.product">
+            <field name="name">Provvigioni Agente</field>
+            <field name="default_code">PrvvgnAgnt</field>
+            <field name="type">service</field>
+            <field name="purchase_ok">true</field>
+            <field name="sale_ok">false</field>
+            <field name="categ_id" ref="product.product_category_all"></field>
+            <field name="taxes_id" eval="[(5,0,0)]" />
+            <field name="supplier_taxes_id" eval="[(5,0,0)]" />
+        </record>   
+
+    </data>
+</odoo>

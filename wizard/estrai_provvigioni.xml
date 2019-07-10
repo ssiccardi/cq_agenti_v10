@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<odoo>
+	<data>
+
+    <record id="form_estrai_provvigioni" model="ir.ui.view">
+        <field name="name">form.estrai.provvigioni</field>
+        <field name="model">cq.estrai.provvigioni</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <field invisible="1" name="state"/>
+                <field invisible="1" name="name"/>
+                <group states="get">
+                    <field name="data" readonly="1" filename="name" string="Download"/>
+                </group>
+                <div states="choose">
+                    <p>Questo wizard permette l'estrazione in Excel delle provvigioni da pagare fino alla data inserita. <br/>
+                       Per le provvigioni derivate da fatturato verrà considerata la data di validazione della fattura, mentre per le provvigioni derivate
+                       da pagato verrà considerata la data del pagamento.</p>
+                    <group col="4">
+                       <field name="fino_al" required="1" />
+                       <field name="data_ultimo_pag_provv" />
+                    </group>
+                </div>
+                <footer states="choose" >
+                    <button string="Estrai" class="oe_highlight" name="get_report" type="object"/>
+                    <button special="cancel" string="Annulla"/>
+                </footer>
+                <footer states="get">
+                    <button special="cancel" string="Annulla"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+                
+    <record id="action_estrai_provvigioni" model="ir.actions.act_window">
+      <field name="name">Estrai provvigioni da pagare</field>
+      <field name="res_model">cq.estrai.provvigioni</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+    <menuitem action="action_estrai_provvigioni" id="menu_estrai_provvigioni" parent="menu_provvigioni_agenti" sequence="10"/>
+
+  </data> 
+</odoo>

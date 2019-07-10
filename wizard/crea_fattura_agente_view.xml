@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_fattura_agente" model="ir.ui.view">
+        <field name="name">Crea Fattura Agente</field>
+        <field name="model">fattura.agente</field>
+        <field name="arch" type="xml">
+          <form string="Crea Fattura Agente">
+              <group>
+                  <field name="journal_id" domain="[('type','=',journal_type)]"/>
+                  <field name="invoice_date" />
+              </group>
+              <footer>
+                  <button name="create_fattura_agente" string="Crea" type="object" class="oe_highlight"/>
+                  <button string="Annulla" special="cancel"/>
+              </footer>
+          </form>
+        </field>
+    </record>
+
+    <act_window name="Crea fattura agente"
+        res_model="fattura.agente"
+        src_model="tabella.enasarco"
+        key2="client_action_multi"
+        multi="True"
+        view_mode="form"
+        view_type="form"
+        target="new"
+        id="action_fattura_agente"/>
+
+</odoo>
